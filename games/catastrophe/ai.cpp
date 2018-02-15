@@ -109,7 +109,7 @@ bool AI::death_squad_check()
 			enemy_soldier_count++;
 		}
 	}
-	if (enemy_soldier_count < 1 && game->current_turn >= 20) {
+	if (enemy_soldier_count < 1 && game->current_turn >= 40) {
 		return true;
 	}
 
@@ -119,7 +119,7 @@ bool AI::death_squad_check()
 		}
 	}
 	//NOTE: This code is wrong, it should have been if their soldier count is less than 2
-	if (enemy_soldier_count < player_soldier_count-1 && game->current_turn >= 20) {
+	if (enemy_soldier_count < 2 && game->current_turn >= 40) {
 		return true;
 	}
 	return false;
@@ -142,7 +142,7 @@ bool AI::run_turn()
 		for (auto unit : player_units) {
 			if (unit->job->title == "missionary") {
 				converter_turn(unit);
-			} else { //FREE HELICOPTER RIDES
+			} else if (unit != defender){ //FREE HELICOPTER RIDES, but keep our defender
 				death_squad_turn(unit);
 			}
 		}
